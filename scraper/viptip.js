@@ -8,46 +8,48 @@ exports.fetchTodayTips = async function() {
      const container = $('#Tahmin')
      const todayTipContainer = container.find('div').first()
      const tips = $(todayTipContainer).find('table')
+     // All tips 
      const todayTips = []
+     var dateOfTips = ""
 
      tips.each((index,element) => {
           const tip = $(element);
-
           switch(index){
+
                case 0: 
-                    const dateOfTips = tip.find('th').text()
+                    dateOfTips = tip.find('th').text()
                     break;
                case 1: break;
                
                default: 
                     const match = tip.find('.mac').text();
-                    const prediction = tip.find('.sonuc').text().split('/')
+                    const prediction = tip.find('.sonuc').text().split(' / ')
                     let footballTip = prediction[1]
                     
                     todayTips.push({
-                         match,
+                         match: getTeam(match),
                          tip: footballTip.trim()
                     })
                     break;
           }
 
-          // if(index === 0){
-               
-          // }else if(index === 1){
-          //      // Do nothing
-          // }else {
-          //      const match = tip.find('.mac').text();
-          //      const prediction = tip.find('.sonuc').text().split('/')
-          //      let footballTip = prediction[1]
-               
-          //      todayTips.push({
-          //           match,
-          //           tip: footballTip.trim()
-          //      })
-          // }
-
      });
 
-     console.log(todayTips.length);
-     console.log(todayTips);
+     let mappedTips = todayTips.map(e => {
+          e.dateOfTips = dateOfTips
+          return e;
+     });
+
+     return {
+          tips: mappedTips
+     }
+}
+
+
+function getTeam(match){
+     let teams = match.split(' - ')
+     return {
+          home: teams[0],
+          away: teams[1]
+     }
 }
