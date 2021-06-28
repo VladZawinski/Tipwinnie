@@ -1,19 +1,23 @@
 const Tips = require('../models/Tips');
 
 exports.fetchAllTips = async (req,res) => {
-     try {
-          let result = await Tips.find({});
-          res.send({
-               success: true,
-               tips: result
+     
+          Tips.find({})
+          .sort('-createdAt')
+          .find(function (err, result) {
+               if(!err){
+                    res.send({
+                         success: true,
+                         tips: result
+                    });
+               }
+          }).catch(err => {
+               res.send({
+                    success: false,
+                    message: err.message
+               })
           });
-     } catch (error) {
-          res.send({
-               success: false,
-               message: error.message
-          })
-     }
-
+          
 }
 
 exports.updateScore = async (req, res) => {
@@ -56,4 +60,36 @@ exports.updateResult = async (req,res) => {
                message: error
           });
      }
+}
+
+exports.addManually = async (req,res) => {
+     let {home,away,tip,date} = req.body;
+
+     try {
+          const _tip = new Tips({
+               match: {
+                    home,
+                    away
+               },
+               tip,
+               dateOfTips: date
+          });
+
+          const apk = await _tip.save()
+          console.log(apk);
+
+          res.send({
+               success: true,
+               message: "Your match is saved!"
+          });
+     } catch (error) {
+          res.status(500).send({
+               success: false,
+               message: error.message
+          })
+     }
+}
+
+exports.fetchCommonPicks = async (req,res) => {
+     res.json(require('../utils/picks'))
 }

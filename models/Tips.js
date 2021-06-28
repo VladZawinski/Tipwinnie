@@ -26,7 +26,7 @@ const tipSchema = new Schema({
           type: String,
           default: ""
      }
-}, { versionKey: false});
+}, { versionKey: false, timestamps: { createdAt: 'createdAt'}});
 
 
 module.exports = mongoose.model('Tips',tipSchema);

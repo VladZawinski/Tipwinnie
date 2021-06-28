@@ -7,4 +7,8 @@ router.post('/score/update', controller.updateScore)
 
 router.post('/result/update', controller.updateResult);
 
+router.post('/match/add',controller.addManually)
+
+router.get('/choices',controller.fetchCommonPicks)
+
 module.exports = router;
