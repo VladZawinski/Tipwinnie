@@ -159,7 +159,7 @@ exports.findPicksByDate = async (req,res) => {
 
           res.send({
                success: true,
-               date: result
+               data: result
           })
      } catch (error) {
           res.send({
