@@ -17,16 +17,20 @@ const tipSchema = new Schema({
                default: 1080
           }
      },
+     markAs: {
+          type: String,
+          default: 'ordinary'
+     },
      result: {
           type: String,
           default: 'pending'
      },
      tip: String,
-     sofascoreLink: {
+     tipBy: {
           type: String,
-          default: ""
-     }
-}, { versionKey: false, timestamps: { createdAt: 'createdAt'}});
+          default: "vip"
+     },
+}, { versionKey: false , timestamps: { createdAt: 'createdAt'}});
 
 
 module.exports = mongoose.model('Tips',tipSchema);

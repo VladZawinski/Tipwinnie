@@ -11,4 +11,12 @@ router.post('/match/add',controller.addManually)
 
 router.get('/choices',controller.fetchCommonPicks)
 
+router.post('/bulk/add',controller.bulkAdd)
+
+router.post('/markAs',controller.markBadge)
+
+router.get('/days',controller.findDistinctDates)
+
+router.get('/findByDate',controller.findPicksByDate)
+
 module.exports = router;

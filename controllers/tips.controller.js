@@ -1,3 +1,5 @@
+const { each } = require('cheerio/lib/api/traversing');
+const moment = require('moment');
 const Tips = require('../models/Tips');
 
 exports.fetchAllTips = async (req,res) => {
@@ -63,7 +65,7 @@ exports.updateResult = async (req,res) => {
 }
 
 exports.addManually = async (req,res) => {
-     let {home,away,tip,date} = req.body;
+     let {home,away,tip} = req.body;
 
      try {
           const _tip = new Tips({
@@ -72,11 +74,10 @@ exports.addManually = async (req,res) => {
                     away
                },
                tip,
-               dateOfTips: date
+     
           });
 
           const apk = await _tip.save()
-          console.log(apk);
 
           res.send({
                success: true,
@@ -90,6 +91,82 @@ exports.addManually = async (req,res) => {
      }
 }
 
-exports.fetchCommonPicks = async (req,res) => {
-     res.json(require('../utils/picks'))
+exports.bulkAdd = async (req,res) => {
+     let {tips} = req.body;
+     console.log(tips);
+     try {
+          await Tips.insertMany(tips)
+          res.json({
+               message: "Bulk add successfully!"
+          })
+     } catch (error) {
+          res.json({
+               message: error.message
+          })
+     }
 }
+
+exports.fetchCommonPicks = async (req,res) => {
+     res.json(require('../utils/picks').picks)
+}
+
+exports.markBadge = async (req,res) => {
+     try {
+          let {id,markAs} = req.query;
+
+          const tip = await Tips.findByIdAndUpdate(id,{
+               $set: {markAs}
+          },{new: true})
+
+          res.send({
+               success: true,
+               updatedTip: tip
+          });
+     } catch (error) {
+          res.send({
+               success: false,
+               message: error.message
+          })
+     }
+}
+
+exports.findDistinctDates = async (req,res) => {
+     try {
+          let dates = await Tips.find({}).sort('-createdAt').select('createdAt -_id')
+          let duplicatedDates = dates.map(element => moment(new Date(element.createdAt)).format('yyyy-MM-DD'));
+          res.send({
+               success: true,
+               dates: duplicatedDates.filter(onlyUnique)
+          })
+     } catch (error) {
+          res.send({
+               success: false,
+               message: error.message
+          })
+     }
+}
+
+exports.findPicksByDate = async (req,res) => {
+     try {
+          let {date} = req.query;
+
+          let result = await Tips.find({
+               createdAt: {
+                    $gte:moment(date).startOf('day').toDate(),
+                    $lte:moment(date).endOf('day').toDate()
+               }
+          })
+
+          res.send(result)
+     } catch (error) {
+          res.send({
+               success: false,
+               message: error.messa
+          })    
+     }
+}
+
+function onlyUnique(value, index, self) {
+     return self.indexOf(value) === index;
+}
+   
