@@ -155,7 +155,7 @@ exports.findPicksByDate = async (req,res) => {
                     $gte:moment(date).startOf('day').toDate(),
                     $lte:moment(date).endOf('day').toDate()
                }
-          })
+          }).sort('-createdAt');
 
           res.send({
                success: true,
