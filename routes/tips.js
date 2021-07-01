@@ -19,4 +19,6 @@ router.get('/days',controller.findDistinctDates)
 
 router.get('/findByDate',controller.findPicksByDate)
 
+router.get('/recap',controller.getRecapOfTheDay)
+
 module.exports = router;

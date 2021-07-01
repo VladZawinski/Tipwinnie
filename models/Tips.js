@@ -30,6 +30,10 @@ const tipSchema = new Schema({
           type: String,
           default: "vip"
      },
+     matchTime: {
+          type: String,
+          default: ""
+     }
 }, { versionKey: false , timestamps: { createdAt: 'createdAt'}});
 
 

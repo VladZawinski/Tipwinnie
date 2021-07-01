@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-exports.fetchTodayTips = async function() {
+exports.fetchVipTips = async function() {
      const body = await axios.get('http://www.shortclouddesign.com/1vip/vip1.html');
      const $ = cheerio.load(body.data);
 

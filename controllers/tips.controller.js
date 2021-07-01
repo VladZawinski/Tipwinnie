@@ -169,6 +169,39 @@ exports.findPicksByDate = async (req,res) => {
      }
 }
 
+// You can use aggregate
+exports.getRecapOfTheDay = async (req,res) => {
+     try {
+          let {date} = req.query;
+
+          let result = await Tips.find({
+               createdAt: {
+                    $gte:moment(date).startOf('day').toDate(),
+                    $lte:moment(date).endOf('day').toDate()
+               }
+          }).select('result');
+
+          let totalCount = result.length
+          let winCount = result.filter(e => e.result === "win").length
+          let loseCount = result.filter(e => e.result === 'lose').length
+
+          res.send({
+               success: true,
+               data: {
+                    win: winCount,
+                    lose: loseCount,
+                    pending: totalCount - (winCount + loseCount),
+                    total: totalCount
+               }
+          })
+     } catch (error) {
+          res.send({
+               success: false,
+               message: error.message
+          })    
+     }
+}
+
 function onlyUnique(value, index, self) {
      return self.indexOf(value) === index;
 }
