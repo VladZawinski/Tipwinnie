@@ -2,6 +2,7 @@ const router = require('express')();
 const tipScraper = require('../scraper/viptip');
 const footballReportScraper = require('../scraper/afootballreport')
 const over25TipsScraper = require('../scraper/over25tips');
+const betzoid = require('../scraper/betzoid');
 const Tips = require('../models/Tips')
 
 /**
@@ -64,6 +65,24 @@ router.post('/scrape/afootballreport', async (req, res) => {
 router.post('/scrape/over25tips',async (req,res) => {
      try {
           let result = await over25TipsScraper.fetchOver25Tips();
+
+          await Tips.insertMany(result);
+
+          res.send({
+               success: true,
+               message: 'Data scraped successfully!'
+          });
+     } catch (error) {
+          res.send({
+               success: false,
+               message: error.message
+          });
+     }
+})
+
+router.post('/scrape/betzoid',async (req,res) => {
+     try {
+          let result = await betzoid.fetchCornerPicks();
 
           await Tips.insertMany(result);
 

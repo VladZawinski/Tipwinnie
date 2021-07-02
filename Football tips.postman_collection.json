@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "c83ef815-1053-41d4-930f-487380c80176",
+		"name": "Football tips",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Scraper",
+			"item": [
+				{
+					"name": "scrape",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/scraper/scrape/tips",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"scraper",
+								"scrape",
+								"tips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tips by date",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"26 June 2021\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/scraper/delete/tips",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"scraper",
+								"delete",
+								"tips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "A Football Report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/scraper/scrape/afootballreport",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"scraper",
+								"scrape",
+								"afootballreport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Over25Tips",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/scraper/scrape/over25tips",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"scraper",
+								"scrape",
+								"over25tips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Betzoid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/scraper/scrape/betzoid",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"scraper",
+								"scrape",
+								"betzoid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Fetch all tips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/tips/all",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"tips",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Score",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"60d88581daab0c3dd347bc41\",\n    \"home\": 1,\n    \"away\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/api/score/update",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"score",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Result",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/result/update?id=60ddc1d093e24a42caec55ab&markAs=lose",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"result",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "60ddc1d093e24a42caec55ab"
+								},
+								{
+									"key": "markAs",
+									"value": "lose"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add match manually",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"home\": \"Al Jazeera Amman\",\n    \"away\": \"Mann\",\n    \"tip\": \"Over 1.5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/match/add",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"match",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Pick Styles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/choices",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"choices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tips\": [\n        {\n            \"match\": {\n                \"home\": \"Confiança\",\n                \"away\": \"Coritiba\"\n            },\n            \"tipBy\": \"FootballZz\",\n            \"tip\": \"X2\"\n        },\n        {\n            \"match\": {\n                \"home\": \"Umeå FC Akademi\",\n                \"away\": \"Boden\"\n            },\n            \"tipBy\": \"FootballZz\",\n            \"tip\": \"2\"\n        },\n        {\n            \"match\": {\n                \"home\": \"Næsby\",\n                \"away\": \"OB\"\n            },\n            \"tipBy\": \"FootballZz\",\n            \"tip\": \"1X\"\n        }\n        \n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/bulk/add",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"bulk",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch all days",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/days",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"days"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Badge",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/markAs?id=60dd52a2a8b4eb5b2779143e&markAs=favorite",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"markAs"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "60dd52a2a8b4eb5b2779143e"
+								},
+								{
+									"key": "markAs",
+									"value": "favorite"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/api/findByDate?date=2021-06-30",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"api",
+								"findByDate"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2021-06-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recap of the day",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/recap?date=2021-06-27",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"recap"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2021-06-27"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
