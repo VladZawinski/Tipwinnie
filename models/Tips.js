@@ -30,6 +30,10 @@ const tipSchema = new Schema({
           type: String,
           default: "vip"
      },
+     probability: {
+          type: String,
+          default: ""
+     },
      matchTime: {
           type: String,
           default: ""

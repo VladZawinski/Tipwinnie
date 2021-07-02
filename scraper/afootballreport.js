@@ -30,7 +30,7 @@ async function crawlAFootballReport (url,type) {
                picks.push({
                     home: homeTeam,
                     away: awayTeam,
-                    tip: type
+                    tip: type,
                }) 
           }
      })

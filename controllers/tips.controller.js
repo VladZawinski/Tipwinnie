@@ -65,7 +65,7 @@ exports.updateResult = async (req,res) => {
 }
 
 exports.addManually = async (req,res) => {
-     let {home,away,tip} = req.body;
+     let {home,away,tip,tipBy} = req.body;
 
      try {
           const _tip = new Tips({
@@ -74,10 +74,10 @@ exports.addManually = async (req,res) => {
                     away
                },
                tip,
-     
+               tipBy
           });
 
-          const apk = await _tip.save()
+          await _tip.save()
 
           res.send({
                success: true,
